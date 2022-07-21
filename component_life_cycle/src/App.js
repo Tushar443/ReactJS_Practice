@@ -4,6 +4,7 @@ import { Component } from 'react';
 import Persons from './Components/Persons/Persons'
 import withClass from './HOC/withClass';
 import Auxillery from './HOC/Auxillery';
+import AuthContext from './contex/Auth-Context';
 
 class App extends Component {
   constructor(props) {
@@ -23,12 +24,17 @@ class App extends Component {
 
   state = {
     persons: [
-      { id: '1', name: 'tushar1', age: 10 },
-      { id: '2', name: 'tushar2', age: 11 },
-      { id: '3', name: 'tushar3', age: 12 },
+      // { id: '1', name: 'tushar1', age: "100" },
+      // Error Warning: Failed prop type: 
+      //Invalid prop `age` of type `string` supplied to `person`, expected `number`.
+      { id: '1', name: 'tushar1', age: 100 },
+      { id: '2', name: 'tushar2', age: 110 },
+      { id: '3', name: 'tushar3', age: 120 },
     ],
     showPerson: true,
-    showCockpit: true
+    showCockpit: true,
+    counter : 0 ,
+    authenticate : false
   };
 
   deleteHandler = (personIndex) => {
@@ -46,29 +52,39 @@ class App extends Component {
     let Newperson = persons[id];
     Newperson.name = event.target.value;
     persons[id] = Newperson;
-    this.setState({
-      persons: persons,
-      showPerson: true,
+    // this.setState({
+    //   persons: persons,
+    //   showPerson: true,
+    // })
+    this.setState((prevState,props)=>{
+        return {persons : persons,
+                counter : prevState.counter+1
+        }
     })
+
   }
 
   togglerPersons = () => {
     const doSome = this.state.showPerson;
     this.setState({
       persons: [
-        { id: '1', name: 'tushar1', age: 100 },
+        { id: '1', name: 'tushar1', age: "100" },
         { id: '2', name: 'tushar2', age: 110 },
         { id: '3', name: 'tushar3', age: 120 },
       ],
       showPerson: !doSome,
-      showCockpit: true
+      showCockpit: true,
+      counter : 0 ,
+      authenticate : false
     })
   }
   
-
+  loginhandler(){
+    console.log("@@@@ ",this);
+      this.setState({authenticate : true})
+  }
 
   render() {
-    console.log("@@@@@@@@@@@ ",classes);
     let newPerson = null;
     if (this.state.showPerson) {
       newPerson = (
@@ -82,8 +98,13 @@ class App extends Component {
     return (
       <Auxillery  className='App'>
         <button onClick={() => { this.setState({ showCockpit: !this.state.showCockpit }) }} >Remove Cockpit</button>
-        {this.state.showCockpit ? <Cockpit toggled={this.togglerPersons} /> : null}
-        {newPerson}
+        <AuthContext.Provider value={{
+            authenticated : this.state.authenticate,
+            login : this.loginhandler
+        }}>
+          {this.state.showCockpit ? <Cockpit toggled={this.togglerPersons} /> : null}
+          {newPerson}
+        </AuthContext.Provider>
       </Auxillery>
     );
   }
