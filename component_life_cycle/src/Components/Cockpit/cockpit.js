@@ -1,9 +1,10 @@
-import { React, useEffect,Fragment, useRef } from "react";
+import { React, useEffect,Fragment, useRef,useContext } from "react";
 import Aux from '../../HOC/Auxillery';
 import AuthContext from '../../contex/Auth-Context';
 const Cockpit = (props) => {
     const buttonRef = useRef();
-
+    const authContext = useContext(AuthContext);
+    console.log("Auth ",authContext);
     useEffect(() => {
         console.log("Cockpit.js useEffect");
         // setTimeout(()=>{
@@ -32,9 +33,11 @@ const Cockpit = (props) => {
                 onClick={props.toggled}
             >Toggled Persons</button>
             
-            <AuthContext.Consumer>
-            {context=> <button onClick={context.login}>Login </button>}
-            </AuthContext.Consumer>
+            {/* <AuthContext.Consumer>
+            {context=> <button onClick={context.login}>Login</button>}
+            </AuthContext.Consumer> */}
+
+            <button onClick={authContext.login}>Login</button>
         {/* </Aux> */}
         </Fragment>
     );

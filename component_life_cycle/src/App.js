@@ -67,15 +67,15 @@ class App extends Component {
   togglerPersons = () => {
     const doSome = this.state.showPerson;
     this.setState({
-      persons: [
-        { id: '1', name: 'tushar1', age: "100" },
-        { id: '2', name: 'tushar2', age: 110 },
-        { id: '3', name: 'tushar3', age: 120 },
-      ],
+      // persons: [
+      //   { id: '1', name: 'tushar1', age: "100" },
+      //   { id: '2', name: 'tushar2', age: 110 },
+      //   { id: '3', name: 'tushar3', age: 120 },
+      // ],
       showPerson: !doSome,
-      showCockpit: true,
-      counter : 0 ,
-      authenticate : false
+      // showCockpit: true,
+      // counter : 0 ,
+      // authenticate : false
     })
   }
   

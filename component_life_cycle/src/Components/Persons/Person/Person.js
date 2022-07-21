@@ -15,10 +15,13 @@ class person extends Component {
         // this.inputElement = React.createRef();
     }
 
+    static contextType = AutheContext;
+
     componentDidMount() {
         console.log("single Person.js  componentDidMount");
        this.inputElement.focus();
     //    this.inputElement.current.focus();
+    console.log(this.context.authenticated);
     }
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log("single Person.js  getSnapshotBeforeUpdate");
@@ -32,10 +35,13 @@ class person extends Component {
         console.log("single Person.js Rendering..");
         return (
             <Auxillery className='Person'>
-                <AutheContext.Consumer>
+                {/* <AutheContext.Consumer>
                 {(context)=> context.authenticated ? 
                     <p>Is authenticate</p> : <p> Not authenticate</p>}
-                </AutheContext.Consumer>
+                </AutheContext.Consumer> */}
+                {this.context.authenticated ? 
+                    <p>Is authenticate</p> : <p> Not authenticate</p>}
+
                 <p onClick={this.props.click}> Hi i am {this.props.name} and i am {this.props.age} years old</p>
                 <p>{this.props.children}</p>
                 {/* <input onChange={this.props.changed} value={this.props.name}
