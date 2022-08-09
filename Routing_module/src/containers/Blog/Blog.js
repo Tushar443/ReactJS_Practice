@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './Blog.css';
 import Posts from './Posts/Posts';
 import NewPost from '../Blog/NewPost/NewPost'
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 class Blog extends Component {
+    state ={
+        auth : true
+    }
     render() {
         return (
             <div className='Blog'>
@@ -18,7 +21,7 @@ class Blog extends Component {
                                     color: 'red',
                                     textDecoration: 'underline'
                                 }}
-                            >Home</NavLink></li>
+                            >Posts</NavLink></li>
                             <li><NavLink to={{
                                 pathname: '/new-post',
                                 hash: '#submit',
@@ -31,8 +34,10 @@ class Blog extends Component {
                 <Route path='/' render={()=><h1>Home2</h1>}/> */}
                 
                 <Switch >
-                    <Route path='/new-post' component={NewPost} />
+                    {this.state.auth ? <Route path='/new-post' component={NewPost} /> : null } 
                     <Route path='/posts'  component={Posts} />
+                    <Route render={()=><h1>404 Not Found</h1>} />
+                    {/* <Redirect from='/' to='/posts' /> */}
                     {/* <Route path='/:id' component={FullPost} /> */}
 
                 </Switch>

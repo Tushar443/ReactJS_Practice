@@ -12,21 +12,18 @@ class FullPost extends Component {
         this.loadData();
     }
 
-    componentWillMount(){
+    componentDidUpdate(){
         this.loadData();
     }
 
     loadData(){
         console.log("Full post",this.props);
-        if (this.props.match.params.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id))
-                axios.get('https://jsonplaceholder.typicode.com/' + this.props.match.params.id).then(response => {
-                    // console.log(this.state);
+        if (this.props.match.params.id) {                                                           // Convert String into number by adding + 
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id))
+                axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id).then(response => {
                     this.setState({
                         loadedPost: response.data
                     });
-                    // console.log("@",this.state);
-
                 })
         }
     }
