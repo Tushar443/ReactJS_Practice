@@ -8,7 +8,7 @@ const sideDrawer=(props)=>{
     if(props.show){
         attachedClasses = [classes.SideDrawer , classes.Open];
     }
-    console.log(props.clicked);
+    // console.log(props.clicked);
     return(
         <Auxillery>
             <BackDrop show={props.show} purchasedCancel = {props.clicked}/>
