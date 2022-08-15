@@ -81,7 +81,8 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: ''
+                value: 'fastest',
+                valid : true
             }
         },
         isFormValid : false,
@@ -131,11 +132,10 @@ class ContactData extends Component {
         updatedConfig.valid = this.checkValidation(updatedConfig.value,updatedConfig.validation)
         updatedConfig.touched = true;
         updatedForm[inputId] = updatedConfig;
-        let isFormValid = true
-        for(let inputId2 in updatedForm){
-            isFormValid = updatedForm[inputId2].valid && isFormValid;
+        let isFormValid = true;
+        for(let inputId in updatedForm){
+            isFormValid = (updatedForm[inputId].valid && isFormValid);
         }
-        console.log(isFormValid);
         this.setState({
             orderForm : updatedForm,
             isFormValid : isFormValid
